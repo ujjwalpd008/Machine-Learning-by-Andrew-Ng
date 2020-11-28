@@ -1,0 +1,101 @@
+1.https://www.coursera.org/learn/machine-learning/discussions/weeks/2/threads/s3zJlA6iEee1sA6jIVM2EA
+
+2.https://in.mathworks.com/company/newsletters/articles/using-the-matlab-meshgrid-command-and-array-operators-to-implement-one-and-two-variable-functions.html
+
+The glitch with meshgrid is as follows:
+
+
+% I carefully choose these example number.
+x = 1:0.2:2    % x is [1.0 1.2 1.4 1.6 1.8 2.0], 1x6 row vec
+y = 0:0.25:1   % y is [0.0 0.25 0.5 0.75 1.0], 1x5 row vec
+
+[xx,yy] = meshgrid(x,y)
+% xx =    
+%   1.0000   1.2000   1.4000   1.6000   1.8000   2.0000
+%   1.0000   1.2000   1.4000   1.6000   1.8000   2.0000
+%   1.0000   1.2000   1.4000   1.6000   1.8000   2.0000
+%   1.0000   1.2000   1.4000   1.6000   1.8000   2.0000
+%   1.0000   1.2000   1.4000   1.6000   1.8000   2.0000
+
+% yy =    
+%   0.00000   0.00000   0.00000   0.00000   0.00000   0.00000
+%   0.25000   0.25000   0.25000   0.25000   0.25000   0.25000
+%   0.50000   0.50000   0.50000   0.50000   0.50000   0.50000
+%   0.75000   0.75000   0.75000   0.75000   0.75000   0.75000
+%   1.00000   1.00000   1.00000   1.00000   1.00000   1.00000
+
+At first glampse, it seems ok that x values in xx matrix is increasing in the columnwise and also y values in yy matrix is increasing in rowwise. But, if we carefully look into that, this is opposite to our traditional indexing manner of x and y. Our traditional way, when we describe x,y pair, is that x is indexed first and y is secondary. This means that in the view of matrix, different x values should be seen in the different matrix rows.
+
+The conclusion is that, when we relate the output of meshgrid function and Z matrix which the element is calculated from z = f(x, y), we have to transpose Z matrix before the relating job. In our case, surf function is the relating job.
+
+
+Run this program in octave
+
+clear;close all;clc
+fprintf(' ==========================WITH MESHGRID=============================\n')
+x = 0:5;
+y = 0:2:10;
+[X Y] = meshgrid(x,y);
+X
+Y
+Z = X.^2 + Y.^2;
+Z
+fprintf('Z(5,10) = %d \n',Z(6,6));
+fprintf('Z(0,10) = %d \n',Z(1,6));
+fprintf('Z(5,0) = %d \n',Z(6,1));
+figure;
+surf(X,Y,Z);
+title('WITH MESHGRID')
+
+
+xlabel('X-values');
+ylabel('Y-values');
+zlabel('Z-values');
+
+fprintf('====================WITHOUT MESHGRID================(uses the function exp_fun) \n')
+
+x = 0:5;
+y = 0:2:10;
+z = zeros(6,6);
+for i = 1:6
+  for j = 1:6
+    z(i,j) = exp_fun(x(i),y(j));
+  endfor
+endfor
+
+fprintf('z(5,10) = %d \n',z(6,6));
+fprintf('z(0,10) = %d \n',z(1,6));
+fprintf('z(5,0) = %d \n',z(6,1));
+
+fprintf('Original z will be printed \n')
+z
+z = z';
+figure;
+surf(x,y,z)
+title('WITHOUT MESHGRID')
+xlabel('x-values');
+ylabel('y-values');
+zlabel('z-values')
+
+%======================NOTES================================================
+%In conclusion  when directly using meshgrid no need to transpose else transpose.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
