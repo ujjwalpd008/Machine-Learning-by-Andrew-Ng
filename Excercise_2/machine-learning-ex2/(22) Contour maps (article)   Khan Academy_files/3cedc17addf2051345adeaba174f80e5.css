@@ -1,0 +1,1553 @@
+/*
+ * qTip2 - Pretty powerful tooltips - v2.2.0
+ * http://qtip2.com
+ *
+ * Copyright (c) 2013 Craig Michael Thompson
+ * Released under the MIT, GPL licenses
+ * http://jquery.org/license
+ *
+ * Date: Thu Nov 21 2013 08:34 GMT+0000
+ * Plugins: tips modal viewport svg imagemap ie6
+ * Styles: basic css3
+ */
+/* @noflip */
+.qtip{
+	position: absolute;
+	left: -28000px;
+	top: -28000px;
+	display: none;
+
+	max-width: 280px;
+	min-width: 50px;
+
+	font-size: 10.5px;
+	line-height: 12px;
+
+	direction: ltr;
+
+	box-shadow: none;
+	padding: 0;
+}
+
+	.qtip-content{
+		position: relative;
+		padding: 5px 9px;
+		overflow: hidden;
+
+		text-align: left;
+		word-wrap: break-word;
+	}
+
+	.qtip-titlebar{
+		position: relative;
+		padding: 5px 35px 5px 10px;
+		overflow: hidden;
+
+		border-width: 0 0 1px;
+		font-weight: bold;
+	}
+
+	.qtip-titlebar + .qtip-content{ border-top-width: 0 !important; }
+
+	/* Default close button class */
+	.qtip-close{
+		position: absolute;
+		right: -9px; top: -9px;
+
+		cursor: pointer;
+		outline: medium none;
+
+		border-width: 1px;
+		border-style: solid;
+		border-color: transparent;
+	}
+
+		.qtip-titlebar .qtip-close{
+			right: 4px; top: 50%;
+			margin-top: -9px;
+		}
+
+		* html .qtip-titlebar .qtip-close{ top: 16px; } /* IE fix */
+
+		.qtip-titlebar .ui-icon,
+		.qtip-icon .ui-icon{
+			display: block;
+			text-indent: -1000em;
+			direction: ltr;
+		}
+
+		.qtip-icon, .qtip-icon .ui-icon{
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			border-radius: 3px;
+			text-decoration: none;
+		}
+
+			.qtip-icon .ui-icon{
+				width: 18px;
+				height: 14px;
+
+				line-height: 14px;
+				text-align: center;
+				text-indent: 0;
+				font: normal bold 10px/13px Tahoma,sans-serif;
+
+				color: inherit;
+				background: transparent none no-repeat -100em -100em;
+			}
+
+/* Applied to 'focused' tooltips e.g. most recently displayed/interacted with */
+.qtip-focus{}
+
+/* Applied on hover of tooltips i.e. added/removed on mouseenter/mouseleave respectively */
+.qtip-hover{}
+
+/* Default tooltip style */
+.qtip-default{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #F1D031;
+
+	background-color: #FFFFA3;
+	color: #555;
+}
+
+	.qtip-default .qtip-titlebar{
+		background-color: #FFEF93;
+	}
+
+	.qtip-default .qtip-icon{
+		border-color: #CCC;
+		background: #F1F1F1;
+		color: #777;
+	}
+
+	.qtip-default .qtip-titlebar .qtip-close{
+		border-color: #AAA;
+		color: #111;
+	}
+
+
+
+/*! Light tooltip style */
+.qtip-light{
+	background-color: white;
+	border-color: #E2E2E2;
+	color: #454545;
+}
+
+	.qtip-light .qtip-titlebar{
+		background-color: #f1f1f1;
+	}
+
+
+/*! Dark tooltip style */
+.qtip-dark{
+	background-color: #505050;
+	border-color: #303030;
+	color: #f3f3f3;
+}
+
+	.qtip-dark .qtip-titlebar{
+		background-color: #404040;
+	}
+
+	.qtip-dark .qtip-icon{
+		border-color: #444;
+	}
+
+	.qtip-dark .qtip-titlebar .ui-state-hover{
+		border-color: #303030;
+	}
+
+
+/*! Cream tooltip style */
+.qtip-cream{
+	background-color: #FBF7AA;
+	border-color: #F9E98E;
+	color: #A27D35;
+}
+
+	.qtip-cream .qtip-titlebar{
+		background-color: #F0DE7D;
+	}
+
+	.qtip-cream .qtip-close .qtip-icon{
+		background-position: -82px 0;
+	}
+
+
+/*! Red tooltip style */
+.qtip-red{
+	background-color: #F78B83;
+	border-color: #D95252;
+	color: #912323;
+}
+
+	.qtip-red .qtip-titlebar{
+		background-color: #F06D65;
+	}
+
+	.qtip-red .qtip-close .qtip-icon{
+		background-position: -102px 0;
+	}
+
+	.qtip-red .qtip-icon{
+		border-color: #D95252;
+	}
+
+	.qtip-red .qtip-titlebar .ui-state-hover{
+		border-color: #D95252;
+	}
+
+
+/*! Green tooltip style */
+.qtip-green{
+	background-color: #CAED9E;
+	border-color: #90D93F;
+	color: #3F6219;
+}
+
+	.qtip-green .qtip-titlebar{
+		background-color: #B0DE78;
+	}
+
+	.qtip-green .qtip-close .qtip-icon{
+		background-position: -42px 0;
+	}
+
+
+/*! Blue tooltip style */
+.qtip-blue{
+	background-color: #E5F6FE;
+	border-color: #ADD9ED;
+	color: #5E99BD;
+}
+
+	.qtip-blue .qtip-titlebar{
+		background-color: #D0E9F5;
+	}
+
+	.qtip-blue .qtip-close .qtip-icon{
+		background-position: -2px 0;
+	}
+
+
+
+.qtip-shadow{
+	-webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+	box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+/* Add rounded corners to your tooltips in: FF3+, Chrome 2+, Opera 10.6+, IE9+, Safari 2+ */
+.qtip-rounded,
+.qtip-tipsy,
+.qtip-bootstrap{
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.qtip-rounded .qtip-titlebar{
+	-moz-border-radius: 4px 4px 0 0;
+	-webkit-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+}
+
+/* Youtube tooltip style */
+.qtip-youtube{
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+
+	-webkit-box-shadow: 0 0 3px #333;
+	-moz-box-shadow: 0 0 3px #333;
+	box-shadow: 0 0 3px #333;
+
+	color: white;
+	border-width: 0;
+
+	background: #4A4A4A;
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#4A4A4A),color-stop(100%,black));
+	background-image: -webkit-linear-gradient(top,#4A4A4A 0,black 100%);
+	background-image: -moz-linear-gradient(top,#4A4A4A 0,black 100%);
+	background-image: -ms-linear-gradient(top,#4A4A4A 0,black 100%);
+	background-image: -o-linear-gradient(top,#4A4A4A 0,black 100%);
+}
+
+	.qtip-youtube .qtip-titlebar{
+		background-color: #4A4A4A;
+		background-color: rgba(0,0,0,0);
+	}
+
+	.qtip-youtube .qtip-content{
+		padding: .75em;
+		font: 12px arial,sans-serif;
+
+		filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#4a4a4a,EndColorStr=#000000);
+		-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#4a4a4a,EndColorStr=#000000);";
+	}
+
+	.qtip-youtube .qtip-icon{
+		border-color: #222;
+	}
+
+	.qtip-youtube .qtip-titlebar .ui-state-hover{
+		border-color: #303030;
+	}
+
+
+/* jQuery TOOLS Tooltip style */
+.qtip-jtools{
+	background: #232323;
+	background: rgba(0, 0, 0, 0.7);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#717171), to(#232323));
+	background-image: -moz-linear-gradient(top, #717171, #232323);
+	background-image: -webkit-linear-gradient(top, #717171, #232323);
+	background-image: -ms-linear-gradient(top, #717171, #232323);
+	background-image: -o-linear-gradient(top, #717171, #232323);
+
+	border: 2px solid #ddd;
+	border: 2px solid rgba(241,241,241,1);
+
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+
+	-webkit-box-shadow: 0 0 12px #333;
+	-moz-box-shadow: 0 0 12px #333;
+	box-shadow: 0 0 12px #333;
+}
+
+	/* IE Specific */
+	.qtip-jtools .qtip-titlebar{
+		background-color: transparent;
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171,endColorstr=#4A4A4A);
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#717171,endColorstr=#4A4A4A)";
+	}
+	.qtip-jtools .qtip-content{
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4A4A4A,endColorstr=#232323);
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#4A4A4A,endColorstr=#232323)";
+	}
+
+	.qtip-jtools .qtip-titlebar,
+	.qtip-jtools .qtip-content{
+		background: transparent;
+		color: white;
+		border: 0 dashed transparent;
+	}
+
+	.qtip-jtools .qtip-icon{
+		border-color: #555;
+	}
+
+	.qtip-jtools .qtip-titlebar .ui-state-hover{
+		border-color: #333;
+	}
+
+
+/* Cluetip style */
+.qtip-cluetip{
+	-webkit-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+	box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+
+	background-color: #D9D9C2;
+	color: #111;
+	border: 0 dashed transparent;
+}
+
+	.qtip-cluetip .qtip-titlebar{
+		background-color: #87876A;
+		color: white;
+		border: 0 dashed transparent;
+	}
+
+	.qtip-cluetip .qtip-icon{
+		border-color: #808064;
+	}
+
+	.qtip-cluetip .qtip-titlebar .ui-state-hover{
+		border-color: #696952;
+		color: #696952;
+	}
+
+
+/* Tipsy style */
+.qtip-tipsy{
+	background: black;
+	background: rgba(0, 0, 0, .87);
+
+	color: white;
+	border: 0 solid transparent;
+
+	font-size: 11px;
+	font-family: 'Lucida Grande', sans-serif;
+	font-weight: bold;
+	line-height: 16px;
+	text-shadow: 0 1px black;
+}
+
+	.qtip-tipsy .qtip-titlebar{
+		padding: 6px 35px 0 10px;
+		background-color: transparent;
+	}
+
+	.qtip-tipsy .qtip-content{
+		padding: 6px 10px;
+	}
+
+	.qtip-tipsy .qtip-icon{
+		border-color: #222;
+		text-shadow: none;
+	}
+
+	.qtip-tipsy .qtip-titlebar .ui-state-hover{
+		border-color: #303030;
+	}
+
+
+/* Tipped style */
+.qtip-tipped{
+	border: 3px solid #959FA9;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+
+	background-color: #F9F9F9;
+	color: #454545;
+
+	font-weight: normal;
+	font-family: serif;
+}
+
+	.qtip-tipped .qtip-titlebar{
+		border-bottom-width: 0;
+
+		color: white;
+		background: #3A79B8;
+		background-image: -webkit-gradient(linear, left top, left bottom, from(#3A79B8), to(#2E629D));
+		background-image: -webkit-linear-gradient(top, #3A79B8, #2E629D);
+		background-image: -moz-linear-gradient(top, #3A79B8, #2E629D);
+		background-image: -ms-linear-gradient(top, #3A79B8, #2E629D);
+		background-image: -o-linear-gradient(top, #3A79B8, #2E629D);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D);
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#3A79B8,endColorstr=#2E629D)";
+	}
+
+	.qtip-tipped .qtip-icon{
+		border: 2px solid #285589;
+		background: #285589;
+	}
+
+		.qtip-tipped .qtip-icon .ui-icon{
+			background-color: #FBFBFB;
+			color: #555;
+		}
+
+
+/**
+ * Twitter Bootstrap style.
+ *
+ * Tested with IE 8, IE 9, Chrome 18, Firefox 9, Opera 11.
+ * Does not work with IE 7.
+ */
+.qtip-bootstrap{
+	/** Taken from Bootstrap body */
+	font-size: 14px;
+	line-height: 20px;
+	color: #333333;
+
+	/** Taken from Bootstrap .popover */
+	padding: 1px;
+	background-color: #ffffff;
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+}
+
+	.qtip-bootstrap .qtip-titlebar{
+		/** Taken from Bootstrap .popover-title */
+		padding: 8px 14px;
+		margin: 0;
+		font-size: 14px;
+		font-weight: normal;
+		line-height: 18px;
+		background-color: #f7f7f7;
+		border-bottom: 1px solid #ebebeb;
+		-webkit-border-radius: 5px 5px 0 0;
+		-moz-border-radius: 5px 5px 0 0;
+		border-radius: 5px 5px 0 0;
+	}
+
+		.qtip-bootstrap .qtip-titlebar .qtip-close{
+			/**
+			 * Overrides qTip2:
+			 * .qtip-titlebar .qtip-close{
+			 *   [...]
+			 *   right: 4px;
+			 *   top: 50%;
+			 *   [...]
+			 *   border-style: solid;
+			 * }
+			 */
+			right: 11px;
+			top: 45%;
+			border-style: none;
+		}
+
+	.qtip-bootstrap .qtip-content{
+		/** Taken from Bootstrap .popover-content */
+		padding: 9px 14px;
+	}
+
+	.qtip-bootstrap .qtip-icon{
+		/**
+		 * Overrides qTip2:
+		 * .qtip-default .qtip-icon {
+		 *   border-color: #CCC;
+		 *   background: #F1F1F1;
+		 *   color: #777;
+		 * }
+		 */
+		background: transparent;
+	}
+
+		.qtip-bootstrap .qtip-icon .ui-icon{
+			/**
+			 * Overrides qTip2:
+			 * .qtip-icon .ui-icon{
+			 *   width: 18px;
+			 *   height: 14px;
+			 * }
+			 */
+			width: auto;
+			height: auto;
+
+			/* Taken from Bootstrap .close */
+			float: right;
+			font-size: 20px;
+			font-weight: bold;
+			line-height: 18px;
+			color: #000000;
+			text-shadow: 0 1px 0 #ffffff;
+			opacity: 0.2;
+			filter: alpha(opacity=20);
+		}
+
+		.qtip-bootstrap .qtip-icon .ui-icon:hover{
+			/* Taken from Bootstrap .close:hover */
+			color: #000000;
+			text-decoration: none;
+			cursor: pointer;
+			opacity: 0.4;
+			filter: alpha(opacity=40);
+		}
+
+
+/* IE9 fix - removes all filters */
+.qtip:not(.ie9haxors) div.qtip-content,
+.qtip:not(.ie9haxors) div.qtip-titlebar{
+	filter: none;
+	-ms-filter: none;
+}
+
+
+
+.qtip .qtip-tip{
+	margin: 0 auto;
+	overflow: hidden;
+	z-index: 10;
+
+}
+
+	/* Opera bug #357 - Incorrect tip position
+	https://github.com/Craga89/qTip2/issues/367 */
+	x:-o-prefocus, .qtip .qtip-tip{
+		visibility: hidden;
+	}
+
+	.qtip .qtip-tip,
+	.qtip .qtip-tip .qtip-vml,
+	.qtip .qtip-tip canvas{
+		position: absolute;
+
+		color: #123456;
+		background: transparent;
+		border: 0 dashed transparent;
+	}
+
+	.qtip .qtip-tip canvas{ top: 0; left: 0; }
+
+	.qtip .qtip-tip .qtip-vml{
+		behavior: url(#default#VML);
+		display: inline-block;
+		visibility: visible;
+	}
+
+#qtip-overlay{
+	position: fixed;
+	left: 0; top: 0;
+	width: 100%; height: 100%;
+}
+
+	/* Applied to modals with show.modal.blur set to true */
+	#qtip-overlay.blurs{ cursor: pointer; }
+
+	/* Change opacity of overlay here */
+	#qtip-overlay div{
+		position: absolute;
+		left: 0; top: 0;
+		width: 100%; height: 100%;
+
+		background-color: black;
+
+		opacity: 0.7;
+		filter:alpha(opacity=70);
+		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+	}
+
+
+
+.qtipmodal-ie6fix{
+	position: absolute !important;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#khanType {
+  /* Used to style the topic title on a topic page, eg
+  "Introduction to algebra" on /math/algebra/introduction-to-algebra.
+  Also used for the tutorial title on tutorial landing pages.
+  Not restricted to styling the titles of "Topic" entities. */
+}
+.vertical-shadow {
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #aaa;
+  box-shadow: 0 1px 3px #ccc;
+}
+html.page-container-min-width-zero body,
+html.page-container-min-width-zero #page-container {
+  min-width: 0;
+}
+/* Fall back colors? Eg educator, talks & interviews */
+/**
+ * For hover card tooltips
+ *
+ * TODO(stephanie): Converted from base-hovercard.css and hence needs to be
+ * less-ified/have variables extracted out.
+ */
+.qtip.custom-override {
+  max-width: 450px;
+}
+.qtip-default.custom-override {
+  border-color: transparent;
+  background-color: transparent;
+}
+.qtip-default.custom-override .qtip-tip {
+  /* Because qtip seems to add inline styles in IE */
+  display: none !important;
+}
+.qtip-default.custom-override .qtip-content {
+  border: none;
+  background-color: transparent;
+  padding: 0 0 10px 0;
+  top: -7px;
+}
+.hover-card-triangle {
+  position: relative;
+  height: 10px;
+  z-index: 1;
+}
+.hover-card-triangle:before {
+  display: block;
+  position: absolute;
+  left: 26px;
+  top: 2px;
+  content: " ";
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid #BBB;
+}
+.hover-card-triangle:after {
+  display: block;
+  position: absolute;
+  left: 26px;
+  top: 3px;
+  content: " ";
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid #FFF;
+}
+.hover-card-triangle.right:after,
+.hover-card-triangle.right:before {
+  left: auto;
+  right: 26px;
+}
+.hover-card-container {
+  width: 450px;
+  line-height: normal;
+}
+.hover-card-message {
+  padding: 0 0 5px 5px;
+  font-size: 115%;
+  line-height: 20px;
+}
+.hover-card-content-container {
+  position: relative;
+  background: #FFF;
+}
+.hover-card-content {
+  min-height: 60px;
+  padding: 10px;
+  position: relative;
+}
+.hover-card-content .private {
+  visibility: hidden;
+}
+.hover-card-content .user-info {
+  word-wrap: break-word;
+  margin-left: 70px;
+  margin-right: 110px;
+}
+.hover-card-content .user-info img.avatar {
+  float: left;
+  margin-left: -70px;
+  height: 60px;
+  width: 60px;
+}
+.hover-card-content .user-info .profile-link {
+  text-decoration: none;
+}
+.hover-card-content .user-info .nickname-container {
+  color: #999;
+  font-size: 16px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  max-width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.hover-card-content .user-info .nickname {
+  color: #000;
+  font-weight: bold;
+  float: left;
+  max-width: 170px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.hover-card-content .user-info .nickname:hover {
+  text-decoration: underline;
+}
+.hover-card-content .user-info .username {
+  margin-left: 10px;
+  text-overflow: ellipsis;
+}
+.hover-card-content .user-info .bio {
+  color: #999;
+  font-size: 14px;
+  line-height: 16px;
+}
+.hover-card-content .user-stats {
+  position: absolute;
+  right: 10px;
+}
+.hover-card-content .user-stats .badge-container {
+  text-align: right;
+}
+.hover-card-content .user-stats .badge-container .badge-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: -2px;
+}
+.hover-card-content .user-stats .energy-points-badge {
+  margin-top: 10px;
+}
+.hover-card-content .user-actions {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+/** TODO(drew): Create discussion-package/variables.less that this file and moderation.less can refer to **/
+/* Voting arrows */
+/* Comments */
+/* @editOffset is the amount necessary to offset the
+ * textarea so that when you edit a post, the text
+ * does not jump. It is related to @discussionItemPadding,
+ * which specifies the amount of padding at the top/bottom
+ * of discussion items.
+ *
+ * Currently, their values are the same, but they are
+ * separate (but related) variables because they serve
+ * different purposes.
+ */
+/* Discussion column margins */
+/* Column dimensions for spin-offs view */
+/* Colors for spin-off cards on hover */
+/* Styles specifically added for the new discussions rewrite */
+.discussion-code-format {
+  font-family: 'Inconsolata', monospace;
+  white-space: pre;
+  width: auto;
+}
+.discussion-code-inline {
+  display: inline;
+}
+.discussion-code-block {
+  display: block;
+  padding: 20px 0;
+  overflow: auto;
+}
+/* Discussion List */
+.discussion-clear-fix {
+  /* Fix to handle issues with floating elements.
+     * http://www.quirksmode.org/css/clearing.html
+     */
+  overflow: hidden;
+  /* Use padding/margin trick to avoid the edit
+     * field spilling out of the element, which is
+     * a problem because of the overflow: hidden
+     * fix above.
+     */
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-left: -8px;
+  margin-right: -8px;
+}
+.discussion-list {
+  /* Fix to handle issues with floating elements.
+     * http://www.quirksmode.org/css/clearing.html
+     */
+  overflow: hidden;
+  /* Use padding/margin trick to avoid the edit
+     * field spilling out of the element, which is
+     * a problem because of the overflow: hidden
+     * fix above.
+     */
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-left: -8px;
+  margin-right: -8px;
+}
+/* Scratchpads Discussion */
+.profile-scratchpads-list .discussion-list-content,
+.spin-offs .discussion-list-content {
+  /* Override bootstrap css */
+}
+.profile-scratchpads-list .discussion-list-content .row,
+.spin-offs .discussion-list-content .row {
+  margin-left: -20px;
+  *zoom: 1;
+}
+.profile-scratchpads-list .discussion-list-content .row:before,
+.spin-offs .discussion-list-content .row:before,
+.profile-scratchpads-list .discussion-list-content .row:after,
+.spin-offs .discussion-list-content .row:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.profile-scratchpads-list .discussion-list-content .row:after,
+.spin-offs .discussion-list-content .row:after {
+  clear: both;
+}
+.profile-scratchpads-list .discussion-list-content [class*="span"],
+.spin-offs .discussion-list-content [class*="span"] {
+  float: left;
+  min-height: 1px;
+  margin-left: 20px;
+}
+.profile-scratchpads-list .discussion-list-content .container,
+.spin-offs .discussion-list-content .container,
+.profile-scratchpads-list .discussion-list-content .navbar-static-top .container,
+.spin-offs .discussion-list-content .navbar-static-top .container,
+.profile-scratchpads-list .discussion-list-content .navbar-fixed-top .container,
+.spin-offs .discussion-list-content .navbar-fixed-top .container,
+.profile-scratchpads-list .discussion-list-content .navbar-fixed-bottom .container,
+.spin-offs .discussion-list-content .navbar-fixed-bottom .container {
+  width: 2284px;
+}
+.profile-scratchpads-list .discussion-list-content .span12,
+.spin-offs .discussion-list-content .span12 {
+  width: 2284px;
+}
+.profile-scratchpads-list .discussion-list-content .span11,
+.spin-offs .discussion-list-content .span11 {
+  width: 2092px;
+}
+.profile-scratchpads-list .discussion-list-content .span10,
+.spin-offs .discussion-list-content .span10 {
+  width: 1900px;
+}
+.profile-scratchpads-list .discussion-list-content .span9,
+.spin-offs .discussion-list-content .span9 {
+  width: 1708px;
+}
+.profile-scratchpads-list .discussion-list-content .span8,
+.spin-offs .discussion-list-content .span8 {
+  width: 1516px;
+}
+.profile-scratchpads-list .discussion-list-content .span7,
+.spin-offs .discussion-list-content .span7 {
+  width: 1324px;
+}
+.profile-scratchpads-list .discussion-list-content .span6,
+.spin-offs .discussion-list-content .span6 {
+  width: 1132px;
+}
+.profile-scratchpads-list .discussion-list-content .span5,
+.spin-offs .discussion-list-content .span5 {
+  width: 940px;
+}
+.profile-scratchpads-list .discussion-list-content .span4,
+.spin-offs .discussion-list-content .span4 {
+  width: 748px;
+}
+.profile-scratchpads-list .discussion-list-content .span3,
+.spin-offs .discussion-list-content .span3 {
+  width: 556px;
+}
+.profile-scratchpads-list .discussion-list-content .span2,
+.spin-offs .discussion-list-content .span2 {
+  width: 364px;
+}
+.profile-scratchpads-list .discussion-list-content .span1,
+.spin-offs .discussion-list-content .span1 {
+  width: 172px;
+}
+.profile-scratchpads-list .discussion-list-content .offset12,
+.spin-offs .discussion-list-content .offset12 {
+  margin-left: 2324px;
+}
+.profile-scratchpads-list .discussion-list-content .offset11,
+.spin-offs .discussion-list-content .offset11 {
+  margin-left: 2132px;
+}
+.profile-scratchpads-list .discussion-list-content .offset10,
+.spin-offs .discussion-list-content .offset10 {
+  margin-left: 1940px;
+}
+.profile-scratchpads-list .discussion-list-content .offset9,
+.spin-offs .discussion-list-content .offset9 {
+  margin-left: 1748px;
+}
+.profile-scratchpads-list .discussion-list-content .offset8,
+.spin-offs .discussion-list-content .offset8 {
+  margin-left: 1556px;
+}
+.profile-scratchpads-list .discussion-list-content .offset7,
+.spin-offs .discussion-list-content .offset7 {
+  margin-left: 1364px;
+}
+.profile-scratchpads-list .discussion-list-content .offset6,
+.spin-offs .discussion-list-content .offset6 {
+  margin-left: 1172px;
+}
+.profile-scratchpads-list .discussion-list-content .offset5,
+.spin-offs .discussion-list-content .offset5 {
+  margin-left: 980px;
+}
+.profile-scratchpads-list .discussion-list-content .offset4,
+.spin-offs .discussion-list-content .offset4 {
+  margin-left: 788px;
+}
+.profile-scratchpads-list .discussion-list-content .offset3,
+.spin-offs .discussion-list-content .offset3 {
+  margin-left: 596px;
+}
+.profile-scratchpads-list .discussion-list-content .offset2,
+.spin-offs .discussion-list-content .offset2 {
+  margin-left: 404px;
+}
+.profile-scratchpads-list .discussion-list-content .offset1,
+.spin-offs .discussion-list-content .offset1 {
+  margin-left: 212px;
+}
+.profile-scratchpads-list .discussion-list-content .fork.span1,
+.spin-offs .discussion-list-content .fork.span1 {
+  width: 173px;
+  padding: 6px;
+  margin-left: 0;
+}
+.profile-scratchpads-list .discussion-list-content.row,
+.spin-offs .discussion-list-content.row {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.profile-scratchpads-list .discussion-list-content.row .fork:nth-child(5n+1),
+.spin-offs .discussion-list-content.row .fork:nth-child(5n+1) {
+  margin-left: 4px;
+}
+.profile-scratchpads-list {
+  margin-right: 20px;
+}
+.profile-scratchpads-list .discussion-list-count {
+  display: none;
+  visibility: hidden;
+}
+/* Sorting */
+.discussion-list-sort {
+  float: right;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 20px;
+  margin-top: 1px;
+}
+.discussion-list-sort a {
+  color: #888;
+  margin-left: 10px;
+  text-decoration: none;
+}
+.discussion-list-sort a.selected {
+  color: #000;
+  cursor: default;
+}
+.discussion-list-sort a.selected:hover {
+  text-decoration: none;
+}
+.discussion-list-sort.subject-sort {
+  display: inline-block;
+  float: left;
+  height: 33px;
+  padding-right: 30px;
+  position: relative;
+  white-space: nowrap;
+  z-index: 1000;
+}
+.discussion-list-sort.subject-sort .icon-chevron-up,
+.discussion-list-sort.subject-sort .icon-chevron-down {
+  width: 12px;
+}
+.filterbar-dropdown-inner-container {
+  padding-right: 0;
+  position: relative;
+  top: -2px;
+}
+.filterbar-dropdown,
+.filterbar-mock-dropdown {
+  font-size: 13px;
+  position: absolute;
+}
+.filterbar-dropdown {
+  cursor: pointer;
+  opacity: 0;
+  z-index: 10;
+}
+.filterbar-mock-dropdown {
+  background-color: transparent;
+  border-color: transparent;
+  color: #005987;
+  height: 23px;
+  margin-left: 4px;
+  outline: 0;
+  z-index: 5;
+}
+.filterbar-mock-dropdown .icon-chevron-down {
+  font-size: 11px;
+  margin-left: 4px;
+}
+/* More Button */
+.discussion-list-more {
+  box-sizing: border-box;
+  clear: both;
+  float: left;
+  margin: 10px 0;
+  text-align: center;
+  width: 100%;
+}
+/* Discussion Item */
+.success-highlight {
+  background-color: #ebf1df;
+  color: #000;
+}
+.success-highlight .discussion-meta,
+.success-highlight .discussion-meta a,
+.success-highlight .discussion-meta a:hover,
+.success-highlight .discussion-meta a:visited {
+  color: #808080;
+}
+.success-highlight .discussion-meta-faded,
+.success-highlight .discussion-meta-faded a,
+.success-highlight .discussion-meta-faded a:hover,
+.success-highlight .discussion-meta-faded a:visited {
+  color: #b1b3ad;
+}
+.success-highlight .discussion-meta-separator {
+  color: #c9cebd;
+}
+.success-highlight .discussion-vote div.vote-for {
+  color: #c0cba2;
+}
+.success-highlight .replies-triangle:before {
+  border-bottom-color: #cad1bf;
+}
+.success-highlight .replies-triangle:after {
+  border-bottom-color: #ebf1df;
+}
+.success-highlight .replies-panel {
+  border: 1px solid #cad1bf;
+  margin-right: -2px;
+}
+.success-highlight .replies-panel .replies .reply > .item-separator {
+  border-bottom-color: #d2dac8;
+}
+.success-highlight .replies-panel .replies-closed {
+  border-top-color: #d2dac8;
+  color: #808080;
+}
+.success-highlight .discussion-vote div.vote-for.vote-up {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid #cbcfc6 !important;
+}
+.success-highlight .discussion-vote div.vote-for.vote-down {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #cbcfc6 !important;
+}
+.success-highlight .formatting-tips-container code {
+  background-color: #c6d1ad;
+}
+/* Highlighting */
+.discussion-list .highlight {
+  /* Not using shorthand notation because
+           top and bottom margin/padding can be
+           different. */
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.discussion-list .warning-highlight {
+  background-color: #fcf8e3;
+}
+.discussion-list .success-highlight {
+  background-color: #ebf1df;
+}
+/* Content */
+.discussion-guidelines-format-table code {
+  background-color: #EEE;
+  display: inline;
+  font-family: 'Inconsolata', monospace;
+  padding: 1px 5px;
+  white-space: pre;
+  width: auto;
+  white-space: pre-wrap;
+  /* CSS3 */
+  white-space: -moz-pre-wrap;
+  /* Firefox */
+  white-space: -pre-wrap;
+  /* Opera <7 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* IE */
+}
+.discussion-guidelines-format-table pre code {
+  display: block;
+  margin: 1px 0;
+}
+.discussion-guidelines-format-table i {
+  font-style: italic;
+}
+.discussion-guidelines-format-table {
+  color: #555;
+  font-size: 12px;
+}
+.discussion-guidelines-format-table td {
+  padding: 0 5px;
+  vertical-align: baseline;
+  width: 50%;
+}
+.discussion-guidelines-format-table td:first-child {
+  border-right: 1px solid #ddd;
+}
+.discussion-guidelines-format-table td:last-child {
+  padding-left: 10px;
+}
+.discussion-guidelines-format-table-header td {
+  padding: 0 0 5px 5px;
+}
+.discussion-guidelines-format-table-header td:first-child {
+  padding-left: 0;
+}
+/* Meta */
+.discussion-meta {
+  display: block;
+  clear: both;
+  font-size: 11px;
+  height: 20px;
+  line-height: 20px;
+}
+.discussion-meta,
+.discussion-meta a,
+.discussion-meta a:visited {
+  color: #a0a0a0;
+}
+.discussion-meta .discussion-meta-controls {
+  float: left;
+  padding-right: 15px;
+}
+.discussion-meta .discussion-meta-info {
+  font-style: italic;
+  float: right;
+  text-align: right;
+}
+.discussion-meta-faded,
+.discussion-meta-faded a,
+.discussion-meta-faded a:visited {
+  color: #bfbfbf;
+}
+.discussion-meta-separator {
+  content: "\2022";
+  color: #ddd;
+  padding: 0 2px;
+}
+/* Author */
+.discussion-author {
+  color: #555;
+  font-style: normal;
+}
+a.discussion-author {
+  /* The href property is added lazily; force the underline here for visual
+     * consistency before the hovercard loads. */
+  text-decoration: underline;
+}
+.discussion-author-avatar {
+  height: 15px;
+  margin-bottom: -3px;
+  padding-right: 2px;
+  width: 15px;
+}
+/* Badges */
+.discussion-badge-icon {
+  height: 15px;
+  margin-bottom: -3px;
+  width: 15px;
+}
+/* Voting */
+.discussion-vote {
+  display: inline-block;
+  margin-left: 3px;
+}
+.discussion-vote div.vote-for {
+  cursor: pointer;
+  display: inline-block;
+}
+.discussion-vote div.vote-for.vote-up {
+  /* Firefox doesn't align arrows the same as webkit/IE */
+  -moz-transform: translate(1px, 0px);
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid #e1e1e1 !important;
+}
+.discussion-vote div.vote-for.vote-up.vote-hover {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid #3a6a00 !important;
+}
+.discussion-vote div.vote-for.vote-up.voted {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid #7bab4b !important;
+}
+.discussion-vote div.vote-for.vote-up.voted.vote-hover {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 9px solid #b0cd86 !important;
+}
+.discussion-vote div.vote-for.vote-down {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #e1e1e1 !important;
+}
+.discussion-vote div.vote-for.vote-down.vote-hover {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #861f00 !important;
+}
+.discussion-vote div.vote-for.vote-down.voted {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #bf4f04 !important;
+}
+.discussion-vote div.vote-for.vote-down.voted.vote-hover {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #dfa880 !important;
+}
+/* Forms */
+textarea.discussion-text {
+  /* textarea is inline by default, which causes a little
+     * space to appear beneath it. Set to display: block to
+     * eliminate this. Give it a small margin-bottom to
+     * compensate.
+     */
+  display: block;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  color: #808080;
+  font-family: inherit;
+  font-size: 13px;
+  /* When not open (and displaying placeholder text),
+     * show the placeholder text as italic. */
+  font-style: italic;
+  height: 38px;
+  line-height: 22px;
+  padding: 7px;
+  box-sizing: border-box;
+  width: 100%;
+  outline: none;
+  overflow: auto;
+  resize: none;
+}
+textarea.discussion-text.open {
+  min-height: 100px;
+  resize: vertical;
+}
+textarea.discussion-text.open:not(.placeholder) {
+  /* The placeholder class is added by the placeholder
+             * plugin when the browser does not support html5
+             * placeholders.
+             */
+  color: #000;
+  font-style: normal;
+}
+/* Notes */
+.note {
+  background-color: #feffda;
+  border: 1px solid #E9EBCA;
+  max-width: 150px;
+  position: absolute;
+  padding: 10px;
+  text-align: center;
+  z-index: 25;
+  border-radius: 5px;
+}
+/* Low Quality Notice */
+.low-quality-notice {
+  color: #555;
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  /* Use @editOffset to avoid expanding outside the edge
+     * of the element.
+     */
+  padding: 8px;
+  margin: 8px -8px 8px -8px;
+  font-size: 12px;
+}
+.low-quality-notice.duplicate-notice {
+  margin-top: 5px;
+}
+.low-quality-notice .low-quality-notice-header {
+  padding-bottom: 5px;
+}
+.low-quality-notice h4 {
+  margin-bottom: 5px;
+}
+/* Post Guidelines */
+.eval-left {
+  float: left;
+}
+.eval-left .styled-list {
+  margin-left: 1em;
+}
+.eval-guideline {
+  background-color: #F7F7F7;
+  border: 2px solid #DDD;
+  margin-bottom: 20px;
+  overflow: hidden;
+  padding: 10px;
+  position: relative;
+}
+.eval-guideline code {
+  background-color: #EEE;
+  display: inline;
+  font-family: 'Inconsolata', monospace;
+  padding: 1px 5px;
+  white-space: pre;
+  width: auto;
+  white-space: pre-wrap;
+  /* CSS3 */
+  white-space: -moz-pre-wrap;
+  /* Firefox */
+  white-space: -pre-wrap;
+  /* Opera <7 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* IE */
+}
+.eval-guideline pre code {
+  display: block;
+  margin: 1px 0;
+}
+.eval-guideline div.discussion-meta {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.eval-guideline div.eval-skip {
+  font-size: smaller;
+  margin-top: 40px;
+}
+.eval-guideline div.eval-title {
+  font-size: larger;
+}
+.eval-guideline div.eval-tryeval,
+.eval-guideline div.eval-submitted {
+  margin-top: 20px;
+}
+.eval-guideline div.failed-objective-item {
+  margin-top: 10px;
+}
+.eval-guideline .failed-objectives {
+  margin-top: 20px;
+}
+.eval-guideline div.more-info {
+  margin-top: 20px;
+}
+.eval-guideline div.objective-more-info {
+  margin-bottom: 10px;
+}
+.eval-guideline .eval-button-container {
+  float: right;
+  min-height: 30px;
+}
+.eval-guideline .eval-peer-rubric-item {
+  margin-bottom: 15px;
+}
+.eval-guideline .eval-peer-rubric-item i {
+  display: inline-block;
+  width: 20px;
+}
+.eval-guideline .eval-peer-rubric-item i.pass {
+  color: green;
+}
+.eval-guideline .eval-peer-rubric-item i.nopass {
+  color: red;
+}
+.eval-guideline .eval-peer-rubric-item > div {
+  margin-left: 20px;
+}
+/* Formatting tips */
+.formatting-tips-container {
+  text-align: left;
+  clear: both;
+  margin-top: -2px;
+}
+.formatting-tips-panel {
+  background: #FFF;
+  border: 1px solid #e8e8e8;
+  margin-right: 6%;
+  padding: 8px;
+  color: #a0a0a0;
+}
+.formatting-tips-triangle {
+  height: 10px;
+  position: relative;
+  z-index: 1;
+}
+.formatting-tips-triangle:before,
+.formatting-tips-triangle:after {
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  content: " ";
+  display: block;
+  height: 0;
+  left: 28px;
+  position: absolute;
+  width: 0;
+}
+.formatting-tips-triangle:before {
+  border-bottom: 9px solid #e8e8e8;
+  top: 1px;
+}
+.formatting-tips-triangle:after {
+  border-bottom: 9px solid #FFF;
+  top: 3px;
+}
+/* Replies */
+.eval-area li {
+  margin-top: 10px;
+}
+.eval-area textarea,
+.eval-area select {
+  display: block;
+  margin-bottom: 3px;
+  margin-left: 1px;
+  margin-top: 3px;
+}
+/**
+ * Discussion style overrides for bibliotron tutorial pages.
+ * Note that we use !important throughout the whole thing.
+ * The main reason for this is consistency (easier than
+ * keeping track of where it is and isn't needed).
+ */
+/**
+ * Discussion-related styles for the Project Feedback page
+ * aka /projectfeedback.
+ */
+.projectfeedback-container {
+  color: #44444C;
+  float: none;
+  margin: 0;
+  max-width: 840px;
+  padding: 0 30px 30px 30px;
+}
+.projectfeedback-container h4 {
+  border-bottom: 1px solid #ccc;
+  margin: 30px 0 0;
+  padding-bottom: 3px;
+}
+.projectfeedback-container .discussion-list-header {
+  min-height: 20px;
+  width: 100%;
+}
+.projectfeedback-container .discussion-list-refresh {
+  font-size: 10px;
+  text-decoration: none;
+}
+.projectfeedback-container .discussion-list-refresh .icon-refresh {
+  margin-left: 6px;
+  margin-right: 4px;
+}
+

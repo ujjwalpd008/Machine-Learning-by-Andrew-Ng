@@ -1,0 +1,253 @@
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#khanType {
+  /* Used to style the topic title on a topic page, eg
+  "Introduction to algebra" on /math/algebra/introduction-to-algebra.
+  Also used for the tutorial title on tutorial landing pages.
+  Not restricted to styling the titles of "Topic" entities. */
+}
+.vertical-shadow {
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #aaa;
+  box-shadow: 0 1px 3px #ccc;
+}
+html.page-container-min-width-zero body,
+html.page-container-min-width-zero #page-container {
+  min-width: 0;
+}
+/* Fall back colors? Eg educator, talks & interviews */
+/*a light mint color*/
+/* grey */
+/* the default card/stack view */
+/* this handles much of pre-tutorials exercise layout which is encapsulated in
+  stacks and cards: i.e. the stack of mini cards, the big exercise card, etc.
+
+*/
+.current-card-container {
+  position: relative;
+}
+.current-card-container-inner {
+  background-color: #fdfdfd;
+}
+.card-type-endofstack .current-card-container-inner {
+  background-color: #E9EFDD;
+}
+.current-card-container,
+.current-card-container-inner {
+  transition: all 0.18s ease-in-out;
+}
+.card-type-endofstack #extras {
+  visibility: hidden;
+}
+.card-type-endoftask #extras {
+  display: none;
+}
+.exercises-stack,
+.exercises-card {
+  float: left;
+  width: 7%;
+  /* margin-bottom: -9999px;
+    padding-bottom: 9999px; */
+  box-sizing: border-box;
+}
+.exercises-card {
+  width: 86%;
+}
+.exercises-card.full-width {
+  width: 98%;
+}
+.current-card {
+  position: relative;
+  margin-bottom: 20px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.current-card > * {
+  -webkit-tap-highlight-color: rgba(26, 26, 26, 0.301961);
+}
+.current-card #answer_area_wrap {
+  margin: 10px -8px 0 0;
+}
+.current-card #answer_area .info-box {
+  overflow: visible;
+}
+.current-card .info-box:before {
+  content: " ";
+  display: block;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #ccc;
+  width: 0;
+  height: 16px;
+  position: absolute;
+  right: -1px;
+  top: -24px;
+}
+.card-type-endofstack .current-card-contents {
+  padding: 20px;
+}
+.current-card #problemarea {
+  margin-top: 35px;
+}
+.current-card #workarea {
+  margin-top: 22px;
+}
+.current-card #answer_area_wrap {
+  margin-top: 52px;
+}
+#footer {
+  /*
+     * This crazy little sucker invokes a different rendering path
+     * for the entire page, even though it's only applied to the footer.
+     *
+     * This hints to webkit that GPU acceleration should be used where
+     * possible, which fixes this annoying bug: http://code.google.com/p/chromium/issues/detail?id=103198
+     * as well as any screen flicker on macs when switching to/from GPU
+     * rendering.
+     *
+     * If another fix for this bug is found, this can be removed.
+     * See "the magic CSS bullet" here: http://www.html5rocks.com/en/tutorials/speed/html5/#toc-hardware-accell
+     *
+     * */
+  transform: translateZ(0);
+}
+@media (max-width: 1199px) {
+  #footer.web-tablet-exercise-footer {
+    display: none;
+  }
+}
+/* "Calculating End of Stack" Card Styling */
+.calculating-end-of-stack {
+  height: 380px;
+  padding: 50px;
+  text-align: center;
+}
+.calculating-end-of-stack .calc-text-spin {
+  position: relative;
+  top: -15px;
+}
+.calculating-end-of-stack .calc-text-spin span {
+  display: none;
+}
+.calculating-end-of-stack .spinner {
+  position: relative;
+  top: -5px;
+}
+/**
+  * General Exercise area styling
+  */
+.exercises-content {
+  padding-left: 0;
+  padding-right: 0;
+}
+.exercises-body {
+  min-height: 380px;
+}
+.exercises-header .topic-exercise-badge {
+  width: 7%;
+}
+.exercises-header .topic-exercise-image {
+  width: 40px;
+  height: 40px;
+}
+.exercises-header .topic-exercise-image.inline {
+  display: inline-block;
+  margin: -50% 0;
+}
+.exercises-header .practice-exercise-topic-context {
+  transition: opacity 0.1s ease-in-out;
+  opacity: 0.3;
+  backface-visibility: hidden;
+}
+.exercises-header .practice-exercise-topic-context.solid-hover:hover {
+  opacity: 1;
+}
+.exercises-header .practice-exercise-topic-context .topic-exercise-badge {
+  width: 20px;
+  height: 20px;
+  margin-right: 2px;
+}
+/**
+ * Bibliotron exercise style resets
+ */
+.bibliotron-exercise .exercise-task {
+  position: static !important;
+}
+.bibliotron-exercise .exercises-content {
+  max-width: none !important;
+  position: static;
+}
+.bibliotron-exercise .exercises-body {
+  min-height: 0;
+}
+.bibliotron-exercise .exercises-card {
+  margin-bottom: 0;
+  position: static;
+  width: 100%;
+}
+.bibliotron-exercise .exercises-card.full-width {
+  width: 100%;
+}
+.bibliotron-exercise .current-card-container {
+  position: static;
+}
+.bibliotron-exercise .current-card-container-inner {
+  background-color: #fff;
+  border: 0;
+  box-shadow: none;
+}
+.bibliotron-exercise #extras {
+  display: none;
+}
+.bibliotron-exercise #problemarea {
+  margin: 0 !important;
+  min-height: 0;
+  padding: 0;
+  width: 100%;
+}
+@media (max-width: 767px) {
+  .bibliotron-exercise #problemarea {
+    margin-bottom: 50px !important;
+  }
+}
+.bibliotron-exercise #workarea {
+  margin: 0 !important;
+}
+.bibliotron-exercise .perseus-xom-manatee #hintsarea {
+  margin: 0 !important;
+}
+.bibliotron-exercise .perseus-mobile #hintsarea {
+  margin: 0 !important;
+}
+/**
+ * our .@{domain} {color: white;} overrides mathjax eqs
+ * FIXME(marcos): domain-colors mixins should not define color: @white;
+ * except for in actual mixins, but not for .math, .{@domain}, et al.
+ */
+.MathJax .math {
+  color: #444;
+}
+

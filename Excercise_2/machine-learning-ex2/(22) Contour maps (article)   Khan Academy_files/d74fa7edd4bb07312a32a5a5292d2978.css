@@ -1,0 +1,209 @@
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.clearfix:after {
+  clear: both;
+}
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#khanType {
+  /* Used to style the topic title on a topic page, eg
+  "Introduction to algebra" on /math/algebra/introduction-to-algebra.
+  Also used for the tutorial title on tutorial landing pages.
+  Not restricted to styling the titles of "Topic" entities. */
+}
+.vertical-shadow {
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #aaa;
+  box-shadow: 0 1px 3px #ccc;
+}
+html.page-container-min-width-zero body,
+html.page-container-min-width-zero #page-container {
+  min-width: 0;
+}
+/* Fall back colors? Eg educator, talks & interviews */
+/* Moderator management */
+.moderator-row {
+  margin: 10px 0;
+}
+.moderator-row .hover-card-container {
+  float: left;
+}
+.moderator-management .controls {
+  float: left;
+  margin: 10px 0 0 4px;
+}
+.moderator-management .level {
+  color: white;
+  display: inline-block;
+  margin-left: 4px;
+  width: 80px;
+  /* TODO(marcia): Find some appropriate colors. */
+}
+.moderator-management .level.bronze {
+  background-color: green;
+  opacity: 0.2;
+}
+.moderator-management .level.bronze.enabled {
+  opacity: 1;
+}
+.moderator-management .level.bronze:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+.moderator-management .level.silver {
+  background-color: green;
+  opacity: 0.2;
+}
+.moderator-management .level.silver.enabled {
+  opacity: 1;
+}
+.moderator-management .level.silver:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+.moderator-management .level.gold {
+  background-color: orange;
+  opacity: 0.2;
+}
+.moderator-management .level.gold.enabled {
+  opacity: 1;
+}
+.moderator-management .level.gold:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+.moderator-management .level.platinum {
+  background-color: red;
+  opacity: 0.2;
+}
+.moderator-management .level.platinum.enabled {
+  opacity: 1;
+}
+.moderator-management .level.platinum:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+/* Flag Queue */
+.mod-queue {
+  width: 495px;
+  /* Show answers inside a thread as deleted. */
+}
+.mod-queue.wide {
+  width: auto;
+}
+.mod-queue .discussion-item:first-of-type {
+  border-top: none;
+}
+.mod-queue .discussion-item.deleted .discussion-content {
+  text-decoration: none;
+}
+.mod-queue .thread .answer.deleted .discussion-content {
+  text-decoration: line-through;
+}
+.mod-queue-sorting {
+  border-bottom: 1px solid #ccc;
+  height: 20px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  position: relative;
+}
+.mod-queue-sorting a {
+  color: #555;
+}
+.mod-queue-sorting .mod-queue-types {
+  float: right;
+}
+.mod-queue-sorting .tabrow {
+  margin: 0;
+  padding: 0;
+}
+.mod-queue-sorting .tabrow li {
+  line-height: 22px;
+  margin-left: -10px;
+  margin-right: 10px;
+}
+.mod-queue-sorting .tabrow.sorts {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 20px;
+  float: left;
+}
+.mod-queue-sorting .tabrow.types {
+  float: right;
+}
+/* Mod tools */
+.discussion-meta span.mod-tools .call-to-action.change-type,
+span.mod-tools .call-to-action.change-type,
+span.flag-tools .call-to-action.change-type {
+  color: #005987;
+}
+.discussion-meta span.mod-tools .call-to-action.delete,
+span.mod-tools .call-to-action.delete,
+span.flag-tools .call-to-action.delete {
+  color: #cc4e4b;
+}
+.discussion-meta span.mod-tools .call-to-action.clear-flags,
+span.mod-tools .call-to-action.clear-flags,
+span.flag-tools .call-to-action.clear-flags {
+  color: #005987;
+}
+.discussion-meta span.mod-tools.mod-action-complete a,
+span.mod-tools.mod-action-complete a,
+span.flag-tools.mod-action-complete a {
+  color: #888 !important;
+}
+.discussion-meta span.mod-tools.mod-action-complete a.action-complete,
+span.mod-tools.mod-action-complete a.action-complete,
+span.flag-tools.mod-action-complete a.action-complete {
+  color: #444 !important;
+}
+.discussion-meta span.mod-tools a.action-complete,
+span.mod-tools a.action-complete,
+span.flag-tools a.action-complete {
+  /* Deactivate link. */
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+}
+/* Flags hovercard */
+.flags-hovercard .flag {
+  margin: 5px;
+}
+.flags-hovercard .flag-type {
+  font-style: italic;
+  color: #aaa;
+}
+.mod-happy-message {
+  color: #555;
+  font-size: 15px;
+  margin-top: 50px;
+}
+.mod-queue-empty-message {
+  color: #555;
+  font-size: 15px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
